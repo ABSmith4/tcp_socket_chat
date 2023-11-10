@@ -14,25 +14,18 @@
 int main(int argc, char *argv[]) {
   
     int sockfd;
-    struct addrinfo *servinfo;
 
     if (argc != 2) {
       fprintf(stderr, "usage: client hostname\n");
       exit(1);
     }
+    const char *hostname = argv[1];
 
-    servinfo = setup_connection(argv[1], PORT);
-    if (servinfo == NULL) {
-      return 1; //set up failed
+    sockfd = connection(hostname);
+    if (sockfd == -1) { 
+        exit(2);
     }
 
-    sockfd = connection(servinfo);
-    if (sockfd == -1) {
-      freeaddrinfo(servinfo); // Handle err if connection fails and clear memory buffer
-      return 2;
-    }
-
-    communicate(sockfd);
-    freeaddrinfo(servinfo);
+    close(sockfd);
     return 0;
 }

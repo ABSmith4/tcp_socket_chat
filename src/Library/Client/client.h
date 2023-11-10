@@ -9,8 +9,8 @@
 //prototypes
 
 void *get_in_addr(struct sockaddr *sa);
-struct addrinfo *setup_connection(const char *hostname, const char *port);
-int connection(struct addrinfo *servinfo);
-void communicate(int sockfd);
+int connection(const char *hostname);
+void send_data(int sockfd);
+void receive_data(int sockfd);
 
 #endif
